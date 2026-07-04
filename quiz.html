@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        body { font-family: 'Poppins', sans-serif; }
         .option-btn {
             display: flex;
             align-items: center;
@@ -28,7 +27,6 @@
         .option-btn:hover:not(:disabled) {
             background-color: #e0f2fe;
             border-color: #bae6fd;
-            transform: translateX(4px);
         }
         .option-badge {
             background-color: #0ea5e9;
@@ -55,29 +53,15 @@
 
     <div class="w-full">
         <nav class="sticky top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-slate-100 shadow-sm">
-            <div class="max-w-6xl mx-auto flex justify-between items-center p-4 sm:px-6 relative">
-                <a href="index.html" class="text-blue-500 text-xl font-bold flex items-center gap-2 hover:opacity-90 transition-opacity">
-                    <i class="fa-solid fa-droplet text-2xl text-blue-500 animate-pulse"></i>
+            <div class="max-w-6xl mx-auto flex justify-between items-center p-4 sm:px-6">
+                <a href="index.html" class="text-blue-500 text-xl font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-droplet text-2xl"></i>
                     <span class="tracking-wide">Water Cycle Learn</span>
                 </a>
-                
-                <div class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600">
-                    <a href="#home" class="hover:text-blue-500 transition-colors py-2 border-b-2 border-transparent hover:border-blue-500">Home</a>
-                    <a href="#lessons" class="hover:text-blue-500 transition-colors py-2 border-b-2 border-transparent hover:border-blue-500">Lessons</a>
-                    <a href="quiz.html" class="text-blue-500 font-semibold py-2 border-b-2 border-blue-500">Quiz</a>
-                    <a href="contact.html" class="hover:text-blue-500 transition-colors py-2 border-b-2 border-transparent hover:border-blue-500">Contact</a>
+                <div class="flex items-center gap-6 font-medium text-sm text-slate-600">
+                    <a href="index.html" class="hover:text-blue-500 transition-colors"><i class="fa-solid fa-house mr-1"></i> Home</a>
+                    <a href="quiz.html" class="text-blue-500 transition-colors"><i class="fa-solid fa-pen-clip mr-1"></i> Quiz</a>
                 </div>
-
-                <button onclick="toggleMobileMenu()" class="block md:hidden text-slate-600 hover:text-blue-500 focus:outline-none p-2 rounded-lg hover:bg-slate-50 transition-colors">
-                    <i id="menu-icon" class="fa-solid fa-bars text-xl transition-transform duration-200"></i>
-                </button>
-            </div>
-
-            <div id="mobile-menu" class="hidden absolute top-full left-0 w-full border-b border-slate-100 bg-white/95 backdrop-blur-md px-6 py-4 flex flex-col gap-2 font-medium text-sm text-slate-600 shadow-xl rounded-b-2xl transition-all duration-300 ease-in-out opacity-0 transform -translate-y-2">
-                <a href="#home" onclick="toggleMobileMenu()" class="hover:text-blue-500 hover:bg-blue-50/50 px-4 py-2.5 rounded-xl transition-all flex items-center gap-2"><i class="fa-solid fa-house text-slate-400 w-5"></i> Home</a>
-                <a href="#lessons" onclick="toggleMobileMenu()" class="hover:text-blue-500 hover:bg-blue-50/50 px-4 py-2.5 rounded-xl transition-all flex items-center gap-2"><i class="fa-solid fa-book-open text-slate-400 w-5"></i> Lessons</a>
-                <a href="quiz.html" onclick="toggleMobileMenu()" class="text-blue-600 bg-blue-50 px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 font-semibold"><i class="fa-solid fa-gamepad text-blue-500 w-5"></i> Quiz</a>
-                <a href="contact.html" onclick="toggleMobileMenu()" class="hover:text-blue-500 hover:bg-blue-50/50 px-4 py-2.5 rounded-xl transition-all flex items-center gap-2"><i class="fa-solid fa-envelope text-slate-400 w-5"></i> Contact</a>
             </div>
         </nav>
 
@@ -89,10 +73,10 @@
                 <p class="text-slate-500 mb-8 text-sm md:text-base">Test your understanding of evaporation, condensation, precipitation, and transpiration.</p>
                 
                 <div class="flex flex-col sm:flex-row justify-center gap-4 mb-6">
-                    <button onclick="startQuiz()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-xl transition shadow-md w-full sm:w-auto">
+                    <button onclick="startQuiz()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-xl transition shadow-md">
                         <i class="fa-solid fa-play mr-2"></i> Start Quiz Now
                     </button>
-                    <button id="audio-btn" onclick="toggleAudio()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-6 rounded-xl transition w-full sm:w-auto">
+                    <button id="audio-btn" onclick="toggleAudio()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-6 rounded-xl transition">
                         🔊 Sound Effects: ON
                     </button>
                 </div>
@@ -142,7 +126,8 @@
 
                 <div class="border-t border-slate-200 pt-6 mt-6 text-left">
                     <h3 class="text-lg font-bold text-slate-800 mb-4"><i class="fa-solid fa-magnifying-glass text-blue-500"></i> Review Answers</h3>
-                    <div id="review-container" class="space-y-4 max-h-96 overflow-y-auto pr-2 mb-6"></div>
+                    <div id="review-container" class="space-y-4 max-h-96 overflow-y-auto pr-2 mb-6">
+                        </div>
                 </div>
 
                 <button onclick="location.reload()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-8 rounded-xl transition text-sm w-full sm:w-auto">
@@ -178,36 +163,6 @@
     <audio id="sound-correct" src="https://www.soundjay.com/buttons/sounds/button-10.mp3" preload="auto"></audio>
     <audio id="sound-wrong" src="https://www.soundjay.com/buttons/sounds/button-11.mp3" preload="auto"></audio>
 
-    <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const icon = document.getElementById('menu-icon');
-            
-            if (menu.classList.contains('hidden')) {
-                // Paparkan menu dengan animasi lembut
-                menu.classList.remove('hidden');
-                setTimeout(() => {
-                    menu.classList.remove('opacity-0', '-translate-y-2');
-                    menu.classList.add('opacity-100', 'translate-y-0');
-                }, 10);
-                
-                // Tukar ikon ke 'X' dan pusingkan sedikit
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-xmark', 'rotate-90');
-            } else {
-                // Tutup menu dengan kesan animasi keluar
-                menu.classList.remove('opacity-100', 'translate-y-0');
-                menu.classList.add('opacity-0', '-translate-y-2');
-                
-                icon.classList.remove('fa-xmark', 'rotate-90');
-                icon.classList.add('fa-bars');
-                
-                setTimeout(() => {
-                    menu.classList.add('hidden');
-                }, 300); // Selesai selepas transisi tamat
-            }
-        }
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
