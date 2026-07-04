@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stage: Interactive Quiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
     <style>
         body { font-family: 'Poppins', sans-serif; }
         .option-btn {
@@ -24,6 +23,7 @@
             text-align: left;
             transition: all 0.2s;
             cursor: pointer;
+            color: #334155;
         }
         .option-btn:hover:not(:disabled) {
             background-color: #e0f2fe;
@@ -37,15 +37,16 @@
             border-radius: 6px;
             font-size: 0.75rem;
         }
+        /* Menggunakan !important supaya tidak ditindih oleh inline utility classes */
         .correct-answer {
-            background-color: #22c55e !important;
-            color: white !important;
-            border-color: #16a34a !important;
+            background-color: #dcfce7 !important; /* bg-green-100 */
+            color: #15803d !important;          /* text-green-700 */
+            border-color: #22c55e !important;    /* border-green-500 */
         }
         .wrong-answer {
-            background-color: #ef4444 !important;
-            color: white !important;
-            border-color: #dc2626 !important;
+            background-color: #fee2e2 !important;   /* bg-red-100 */
+            color: #b91c1c !important;            /* text-red-700 */
+            border-color: #ef4444 !important;      /* border-red-500 */
         }
         .text-correct { color: #16a34a; font-weight: 700; margin-top: 10px; }
         .text-wrong { color: #dc2626; font-weight: 700; margin-top: 10px; }
@@ -184,18 +185,15 @@
             const icon = document.getElementById('menu-icon');
             
             if (menu.classList.contains('hidden')) {
-                // Paparkan menu dengan animasi lembut
                 menu.classList.remove('hidden');
                 setTimeout(() => {
                     menu.classList.remove('opacity-0', '-translate-y-2');
                     menu.classList.add('opacity-100', 'translate-y-0');
                 }, 10);
                 
-                // Tukar ikon ke 'X' dan pusingkan sedikit
                 icon.classList.remove('fa-bars');
                 icon.classList.add('fa-xmark', 'rotate-90');
             } else {
-                // Tutup menu dengan kesan animasi keluar
                 menu.classList.remove('opacity-100', 'translate-y-0');
                 menu.classList.add('opacity-0', '-translate-y-2');
                 
@@ -204,7 +202,7 @@
                 
                 setTimeout(() => {
                     menu.classList.add('hidden');
-                }, 300); // Selesai selepas transisi tamat
+                }, 300);
             }
         }
     </script>
