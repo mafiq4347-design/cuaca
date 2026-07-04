@@ -16,15 +16,11 @@ let score = 0;
 let timerInterval;
 let timeLeft = 30;
 let hasAnswered = false;
-let audioPlaying = true; // Diaktifkan secara lalai (true) supaya audio terus berfungsi pada mulanya
-
-// Array untuk menyimpan rekod jawapan yang dipilih oleh pengguna
+let audioPlaying = true; 
 let userAnswers = [];
 
-// ================= AUDIO EFFECTS (WEB AUDIO API - KALIS SEKATAN) =================
-// Menjana bunyi bip gembira/buzz sedih secara digital terus melalui litar audio komputer
+// ================= AUDIO EFFECTS (WEB AUDIO API) =================
 function playSyntheticSound(isCorrect) {
-    // Sila pastikan audioPlaying bernilai true sebelum membunyikan bip
     if (!audioPlaying) return;
     
     try {
@@ -39,18 +35,16 @@ function playSyntheticSound(isCorrect) {
         gain.connect(ctx.destination);
         
         if (isCorrect) {
-            // Bunyi Ceria Ting-Ting untuk Jawapan BETUL
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(523.25, ctx.currentTime); // Nota C5
-            osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.08); // Nota E5
+            osc.frequency.setValueAtTime(523.25, ctx.currentTime); 
+            osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.08); 
             gain.gain.setValueAtTime(0.2, ctx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
             osc.start(ctx.currentTime);
             osc.stop(ctx.currentTime + 0.25);
         } else {
-            // Bunyi Buzz Rendah untuk Jawapan SALAH / MASA TAMAT
             osc.type = 'triangle';
-            osc.frequency.setValueAtTime(180, ctx.currentTime); // Frekuensi rendah amaran
+            osc.frequency.setValueAtTime(180, ctx.currentTime); 
             gain.gain.setValueAtTime(0.3, ctx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
             osc.start(ctx.currentTime);
@@ -67,11 +61,9 @@ function switchScreen(screenId) {
     document.getElementById(screenId).classList.remove('hidden');
 }
 
-// FIX: Logik penukaran teks butang diselaraskan dengan fungsi 'return' sistem audio
 function toggleAudio() {
     audioPlaying = !audioPlaying;
     const btn = document.getElementById('audio-btn');
-    // Jika audioPlaying = true, paparkan ON. Jika false, paparkan OFF.
     btn.innerText = audioPlaying ? "🔊 Sound Effects: ON" : "🔇 Sound Effects: OFF";
 }
 
@@ -82,7 +74,7 @@ function startQuiz() {
     switchScreen('quiz-screen');
     currentQuestionIndex = 0;
     score = 0;
-    userAnswers = []; // Reset rekod jawapan
+    userAnswers = []; 
     loadQuestion();
 }
 
@@ -108,8 +100,8 @@ function loadQuestion() {
     
     currentQuestion.options.forEach((option, index) => {
         const button = document.createElement('button');
-        button.className = "option-btn";
-        button.innerHTML = `<span class="option-badge">${optionLetters[index]}</span> <span>${option}</span>`;
+        button.className = "option-btn bg-slate-50 hover:bg-slate-100 text-slate-700 w-full text-left p-4 rounded-xl transition border border-slate-200 flex items-center gap-3 mb-2";
+        button.innerHTML = `<span class="bg-slate-200 text-slate-700 font-bold px-2 py-1 rounded-md text-xs">${optionLetters[index]}</span> <span>${option}</span>`;
         button.onclick = () => selectOption(index, button);
         optionsContainer.appendChild(button);
     });
@@ -125,14 +117,12 @@ function updateTimer() {
         clearInterval(timerInterval);
         hasAnswered = true;
         
-        // Rekod pilihan sebagai "Masa Tamat" (-1)
         userAnswers.push(-1);
         
         disableOptions();
         highlightCorrectAnswer(quizData[currentQuestionIndex].correct);
-        showFeedback("Time's up! ⏰", "text-wrong");
+        showFeedback("Time's up! ⏰", "text-red-600 font-bold mt-2");
         
-        // Memanggil bunyi salah digital (Masa Tamat)
         playSyntheticSound(false);
         
         document.getElementById('next-btn').classList.remove('hidden');
@@ -146,23 +136,17 @@ function selectOption(selectedIndex, selectedButton) {
     disableOptions();
 
     const currentQuestion = quizData[currentQuestionIndex];
-    
-    // Simpan jawapan pilihan pengguna ke dalam array penjejak
     userAnswers.push(selectedIndex);
 
     if (selectedIndex === currentQuestion.correct) {
         score++;
-        selectedButton.classList.add('correct-answer');
-        showFeedback("Excellent! Your answer is CORRECT. 🎉", "text-correct");
-        
-        // Memanggil bunyi betul digital
+        selectedButton.classList.add('bg-green-100', 'border-green-500', 'text-green-700 font-semibold');
+        showFeedback("Excellent! Your answer is CORRECT. 🎉", "text-green-600 font-bold mt-2");
         playSyntheticSound(true);
     } else {
-        selectedButton.classList.add('wrong-answer');
+        selectedButton.classList.add('bg-red-100', 'border-red-500', 'text-red-700 font-semibold');
         highlightCorrectAnswer(currentQuestion.correct);
-        showFeedback("Incorrect! Don't give up, try again.", "text-wrong");
-        
-        // Memanggil bunyi salah digital
+        showFeedback("Incorrect! Don't give up, try again.", "text-red-600 font-bold mt-2");
         playSyntheticSound(false);
     }
     document.getElementById('next-btn').classList.remove('hidden');
@@ -171,14 +155,15 @@ function selectOption(selectedIndex, selectedButton) {
 function showFeedback(text, className) {
     const feedback = document.getElementById('feedback');
     feedback.innerText = text;
-    reviewContainer = document.getElementById('review-container');
     feedback.classList.remove('hidden');
-    feedback.classList.add(className);
+    feedback.className = `text-center p-3 rounded-xl mb-6 ${className}`;
 }
 
 function highlightCorrectAnswer(correctIndex) {
     const buttons = document.getElementsByClassName('option-btn');
-    if (buttons[correctIndex]) buttons[correctIndex].classList.add('correct-answer');
+    if (buttons[correctIndex]) {
+        buttons[correctIndex].classList.add('bg-green-100', 'border-green-500', 'text-green-700 font-semibold');
+    }
 }
 
 function disableOptions() {
@@ -204,15 +189,13 @@ function showResults() {
     else if (score >= 5) comment.innerText = "Well done! You passed, keep practicing to improve. 👍";
     else comment.innerText = "Try again! Please re-read the Water Cycle module notes. 📚";
 
-    // MENJANA SENARAI SEMAKAN JAWAPAN (REVIEW ANSWERS GENERATOR)
     const reviewContainer = document.getElementById('review-container');
-    reviewContainer.innerHTML = ''; // Kosongkan senarai lama
+    reviewContainer.innerHTML = ''; 
 
     quizData.forEach((data, index) => {
         const userChoiceIndex = userAnswers[index];
         const isCorrect = userChoiceIndex === data.correct;
         
-        // Tentukan teks jawapan pengguna
         let userAnsText = userChoiceIndex === -1 ? "No answer (Time out)" : data.options[userChoiceIndex];
         let correctAnsText = data.options[data.correct];
 
